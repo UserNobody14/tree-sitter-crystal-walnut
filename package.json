@@ -1,8 +1,8 @@
 {
   "name": "tree-sitter-crystal-walnut",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Crystal walnut grammar",
-  "main": "index.js",
+  "main": "bindings/node",
   "types": "bindings/node",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

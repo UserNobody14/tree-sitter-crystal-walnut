@@ -1,4 +1,4 @@
-module github.com/tree-sitter/tree-sitter-crystalwalnut
+module github.com/tree-sitter/tree-sitter-cwal
 
 go 1.22
 

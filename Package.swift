@@ -2,13 +2,13 @@
 import PackageDescription
 
 let package = Package(
-    name: "TreeSitterCrystalwalnut",
+    name: "TreeSitterCwal",
     products: [
-        .library(name: "TreeSitterCrystalwalnut", targets: ["TreeSitterCrystalwalnut"]),
+        .library(name: "TreeSitterCwal", targets: ["TreeSitterCwal"]),
     ],
     dependencies: [],
     targets: [
-        .target(name: "TreeSitterCrystalwalnut",
+        .target(name: "TreeSitterCwal",
                 path: ".",
                 exclude: [
                     "Cargo.toml",

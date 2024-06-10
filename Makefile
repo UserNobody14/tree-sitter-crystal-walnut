@@ -1,6 +1,6 @@
 VERSION := 0.0.1
 
-LANGUAGE_NAME := tree-sitter-crystalwalnut
+LANGUAGE_NAME := tree-sitter-cwal
 
 # repository
 SRC_DIR := src
