@@ -1,0 +1,93 @@
+================================================================================
+Timeline statements
+================================================================================
+
+timeline:
+    b = 2
+    g = 3
+
+
+--------------------------------------------------------------------------------
+
+    (module
+      (timeline_statement
+        (block
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (number))))
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (number)))))))
+
+
+================================================================================
+Timeline statements and predicates
+================================================================================
+
+timeline:
+    b = 2
+    dge(v)
+
+
+--------------------------------------------------------------------------------
+
+   (module
+      (timeline_statement
+        (block
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (number))))
+          (predicate
+            (primary_expression
+              (identifier))
+            (argument_list
+              (expression
+                (primary_expression
+                  (identifier))))))))
+
+
+
+================================================================================
+Timeline statements and access
+================================================================================
+
+timeline:
+    b = 2
+    dge.z = 3
+
+
+--------------------------------------------------------------------------------
+
+
+    (module
+      (timeline_statement
+        (block
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (number))))
+          (unification
+            (expression
+              (primary_expression
+                (attribute
+                  (primary_expression
+                    (identifier))
+                  (identifier))))
+            (expression
+              (primary_expression
+                (number)))))))

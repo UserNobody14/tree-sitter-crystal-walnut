@@ -1,0 +1,136 @@
+================================================================================
+Initial statements
+================================================================================
+
+b = 2
+c = 3
+
+--------------------------------------------------------------------------------
+
+    (module
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (expression
+          (primary_expression
+            (number))))
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (expression
+          (primary_expression
+            (number)))))
+
+
+================================================================================
+Initial statements 2
+================================================================================
+
+b = 2
+c = (a, c) =>
+    g = 5
+    e = 6
+
+--------------------------------------------------------------------------------
+
+ (module
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (expression
+          (primary_expression
+            (number))))
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (predicate_definition
+          (identifier)
+          (identifier)
+          (block
+            (unification
+              (expression
+                (primary_expression
+                  (identifier)))
+              (expression
+                (primary_expression
+                  (number))))
+            (unification
+              (expression
+                (primary_expression
+                  (identifier)))
+              (expression
+                (primary_expression
+                  (number))))))))
+
+
+================================================================================
+Initial statements 3
+================================================================================
+
+b = 2
+c = (a, c) =>
+    g = 5
+    e = 6
+
+c = (a, c) =>
+    g = 5
+    e = 6
+
+--------------------------------------------------------------------------------
+
+ (module
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (expression
+          (primary_expression
+            (number))))
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (predicate_definition
+          (identifier)
+          (identifier)
+          (block
+            (unification
+              (expression
+                (primary_expression
+                  (identifier)))
+              (expression
+                (primary_expression
+                  (number))))
+            (unification
+              (expression
+                (primary_expression
+                  (identifier)))
+              (expression
+                (primary_expression
+                  (number)))))))
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (predicate_definition
+          (identifier)
+          (identifier)
+          (block
+            (unification
+              (expression
+                (primary_expression
+                  (identifier)))
+              (expression
+                (primary_expression
+                  (number))))
+            (unification
+              (expression
+                (primary_expression
+                  (identifier)))
+              (expression
+                (primary_expression
+                  (number))))))))

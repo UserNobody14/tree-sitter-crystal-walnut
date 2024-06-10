@@ -1,0 +1,22 @@
+================================================================================
+type definition
+================================================================================
+
+b = 2
+b :: number
+
+--------------------------------------------------------------------------------
+
+(module
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (expression
+          (primary_expression
+            (number))))
+      (typedef_statement
+        (identifier)
+        (type_definition
+          (type_identifier
+            (identifier)))))
