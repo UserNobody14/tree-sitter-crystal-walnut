@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-crystal-walnut",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Crystal walnut grammar",
   "main": "bindings/node",
   "types": "bindings/node",
@@ -9,7 +9,10 @@
     "install": "node-gyp-build",
     "prebuildify": "prebuildify --napi --strip"
   },
-  "repository": "github:UserNobody14/tree-sitter-crystal-walnut",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UserNobody14/tree-sitter-crystal-walnut.git"
+  },
   "author": "Ben Sobel",
   "license": "MIT",
   "dependencies": {
