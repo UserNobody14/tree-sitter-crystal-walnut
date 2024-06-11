@@ -77,6 +77,8 @@ module.exports = grammar({
       $.match_statement,
       $.with_statement,
       $.typedef_statement,
+      $.all_statement,
+      $.either_statement,
     ),
 
     timeline_statement: ($) => seq("timeline", optional($.identifier), ':', $._suite),
@@ -95,6 +97,9 @@ module.exports = grammar({
     match_case: ($) => seq("case", $.expression, ":", $._suite),
 
     with_statement: ($) => seq("with", $.expression, ":", $._suite),
+    all_statement: ($) => seq("all", ":", $._suite),
+    either_statement: ($) => seq("either", ":", $._suite),
+
 
     typedef_statement: ($) => seq($.identifier, "::", $.type_definition),
 
@@ -208,6 +213,15 @@ module.exports = grammar({
         alias("type", $.identifier)
       ),
 
+    unary_operator: ($) =>
+      seq(
+        field("operator",
+        choice("not", "try", "import", "env", "file", "url", "linear"),
+
+        ),
+        field("operand", $.expression)
+      ),
+
     argument_list: ($) =>
       seq(
         "(",
@@ -255,7 +269,7 @@ module.exports = grammar({
 
     // Expressions
 
-    expression: ($) => choice($.primary_expression),
+    expression: ($) => choice($.binary_operator, $.unary_operator, $.primary_expression),
 
     primary_expression: ($) =>
       choice(

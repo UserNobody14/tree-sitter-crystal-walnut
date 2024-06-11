@@ -1,5 +1,20 @@
 [
   {
+    "type": "all_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "argument_list",
     "named": true,
     "fields": {},
@@ -33,6 +48,90 @@
         ]
       },
       "object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "primary_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "binary_operator",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "primary_expression",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "%",
+            "named": false
+          },
+          {
+            "type": "&",
+            "named": false
+          },
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "**",
+            "named": false
+          },
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "/",
+            "named": false
+          },
+          {
+            "type": "//",
+            "named": false
+          },
+          {
+            "type": "<<",
+            "named": false
+          },
+          {
+            "type": ">>",
+            "named": false
+          },
+          {
+            "type": "@",
+            "named": false
+          },
+          {
+            "type": "^",
+            "named": false
+          },
+          {
+            "type": "|",
+            "named": false
+          }
+        ]
+      },
+      "right": {
         "multiple": false,
         "required": true,
         "types": [
@@ -153,6 +252,14 @@
       "required": false,
       "types": [
         {
+          "type": "all_statement",
+          "named": true
+        },
+        {
+          "type": "either_statement",
+          "named": true
+        },
+        {
           "type": "match_statement",
           "named": true
         },
@@ -199,6 +306,21 @@
     }
   },
   {
+    "type": "either_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "expression",
     "named": true,
     "fields": {},
@@ -207,7 +329,15 @@
       "required": true,
       "types": [
         {
+          "type": "binary_operator",
+          "named": true
+        },
+        {
           "type": "primary_expression",
+          "named": true
+        },
+        {
+          "type": "unary_operator",
           "named": true
         }
       ]
@@ -349,6 +479,14 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "all_statement",
+          "named": true
+        },
+        {
+          "type": "either_statement",
+          "named": true
+        },
         {
           "type": "match_statement",
           "named": true
@@ -629,6 +767,56 @@
     }
   },
   {
+    "type": "unary_operator",
+    "named": true,
+    "fields": {
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "env",
+            "named": false
+          },
+          {
+            "type": "file",
+            "named": false
+          },
+          {
+            "type": "import",
+            "named": false
+          },
+          {
+            "type": "linear",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          },
+          {
+            "type": "try",
+            "named": false
+          },
+          {
+            "type": "url",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "unification",
     "named": true,
     "fields": {},
@@ -774,7 +962,19 @@
     "named": false
   },
   {
+    "type": "all",
+    "named": false
+  },
+  {
     "type": "case",
+    "named": false
+  },
+  {
+    "type": "either",
+    "named": false
+  },
+  {
+    "type": "env",
     "named": false
   },
   {
@@ -786,11 +986,27 @@
     "named": true
   },
   {
+    "type": "file",
+    "named": false
+  },
+  {
     "type": "identifier",
     "named": true
   },
   {
+    "type": "import",
+    "named": false
+  },
+  {
+    "type": "linear",
+    "named": false
+  },
+  {
     "type": "match",
+    "named": false
+  },
+  {
+    "type": "not",
     "named": false
   },
   {
@@ -807,6 +1023,14 @@
   },
   {
     "type": "timeline",
+    "named": false
+  },
+  {
+    "type": "try",
+    "named": false
+  },
+  {
+    "type": "url",
     "named": false
   },
   {

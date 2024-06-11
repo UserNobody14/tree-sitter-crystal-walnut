@@ -1,0 +1,83 @@
+================================================================================
+Simple addition
+================================================================================
+
+timeline:
+    b = 2 + 2
+    g = 3 + v
+
+
+--------------------------------------------------------------------------------
+
+    (module
+      (timeline_statement
+        (block
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (binary_operator
+                (primary_expression
+                  (number))
+                (primary_expression
+                  (number)))))
+      (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (binary_operator
+                (primary_expression
+                  (number))
+                (primary_expression
+                  (identifier))))))))
+
+================================================================================
+Unary
+================================================================================
+
+timeline:
+    b = import "whatever"
+    g = file "./myfile"
+    w = env OPENAI_API_KEY
+
+
+--------------------------------------------------------------------------------
+
+    (module
+      (timeline_statement
+        (block
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (unary_operator
+                (expression
+                  (primary_expression
+                    (string
+                      (string_start)
+                      (string_content)
+                      (string_end)))))))
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (unary_operator
+                (expression
+                  (primary_expression
+                    (string
+                      (string_start)
+                      (string_content)
+                      (string_end)))))))
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (unary_operator
+                (expression
+                  (primary_expression
+                    (identifier)))))))))
