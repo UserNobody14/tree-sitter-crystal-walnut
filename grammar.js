@@ -69,7 +69,10 @@ module.exports = grammar({
         alias($._newline, $.block)
       ),
 
-    _statement: ($) => choice($.unification, $.predicate, $._block_statement),
+    _simple_statement: ($) => choice($.unification, $.predicate),
+    _statement: ($) => choice(
+      $.statement_binary_operator,
+      $.unification, $.predicate, $._block_statement),
 
     _block_statement: ($) => choice(
       $.timeline_statement,
@@ -112,6 +115,8 @@ module.exports = grammar({
       // $.type_dictionary,
       $.type_identifier,
     ),
+
+    test_statement: ($) => seq("test", optional($.identifier), ':', $._suite),
 
     // type_union: ($) => seq($.type_definition, "|", $.type_definition),
     // type_union: ($) => prec.left(
@@ -179,11 +184,12 @@ module.exports = grammar({
         [prec.left, '%', PREC.times],
         [prec.left, '//', PREC.times],
         [prec.right, '**', PREC.power],
+        // TODO: make | and & above unification, and act as conj/disj
         [prec.left, '|', PREC.bitwise_or],
         [prec.left, '&', PREC.bitwise_and],
         [prec.left, '^', PREC.xor],
-        [prec.left, '<<', PREC.shift],
-        [prec.left, '>>', PREC.shift],
+        // [prec.left, '<<', PREC.shift],
+        // [prec.left, '>>', PREC.shift],
       ];
 
       // @ts-ignore
@@ -196,8 +202,41 @@ module.exports = grammar({
     },
 
 
+    statement_binary_operator: $ => {
+      const table = [
+        // [prec.left, '+', PREC.plus],
+        // [prec.left, '-', PREC.plus],
+        // [prec.left, '*', PREC.times],
+        // [prec.left, '@', PREC.times],
+        // [prec.left, '/', PREC.times],
+        // [prec.left, '%', PREC.times],
+        // [prec.left, '//', PREC.times],
+        // [prec.right, '**', PREC.power],
+        // TODO: make | and & above unification, and act as conj/disj
+        [prec.left, 'and', PREC.and],
+        [prec.left, 'or', PREC.or],
+        // [prec.left, '^', PREC.xor],
+      ];
+
+      // @ts-ignore
+      return choice(...table.map(([fn, operator, precedence]) => fn(precedence, seq(
+        field('left', $._simple_statement),
+        // @ts-ignore
+        field('operator', operator),
+        field('right', $._simple_statement),
+      ))));
+    },
+
+
+
     unification: ($) =>
-      seq($.expression, "=", choice($.expression, $.predicate_definition)),
+      seq(
+        field("lhs", $.expression),
+        field("operator", choice("=", "==", "!=", "<<", ">>")),
+        field("rhs",
+          choice($.expression, $.predicate_definition)
+        )
+      ),
 
     identifier: (_) => /[_\p{XID_Start}][_\p{XID_Continue}]*/,
 
@@ -229,6 +268,7 @@ module.exports = grammar({
           commaSep1(
             choice(
               $.expression,
+              $.splat,
               // $.list_splat,
               // $.dictionary_splat,
               // alias($.parenthesized_list_splat, $.parenthesized_expression),
@@ -239,6 +279,8 @@ module.exports = grammar({
         optional(","),
         ")"
       ),
+
+    splat: ($) => seq("...", choice($.primary_expression, $.parenthesized_expression)),
 
     keyword_argument: ($) =>
       seq(
@@ -277,9 +319,12 @@ module.exports = grammar({
         $.keyword_identifier,
         $.string,
         $.number,
+        $.boolean,
+        $.null,
         $.list,
         $.dictionary,
-        $.attribute
+        $.attribute,
+        $.slice,
         // $.parenthesized_expression
       ),
 
@@ -288,6 +333,21 @@ module.exports = grammar({
         '.',
         field('attribute', $.identifier),
       )),
+
+    slice: $ => prec(PREC.call, seq(
+      field('object', $.primary_expression),
+      '[',
+      field('slice',
+        commaSep1(
+          choice(
+            $.expression,
+            $.splat
+          )
+        ),
+      ),
+      optional(","),
+      ']',
+    )),
 
 
     string: ($) =>
@@ -308,10 +368,19 @@ module.exports = grammar({
 
     number: (_) => /\d+/,
 
+    boolean: (_) => choice("true", "false"),
+
+    null: (_) => "null",
+
     list: ($) =>
       seq(
         "[",
-        optional(commaSep1($.expression)),
+        optional(commaSep1(
+          choice(
+            $.expression,
+            $.splat
+          )
+        )),
         optional(","),
         "]"
       ),
@@ -319,18 +388,19 @@ module.exports = grammar({
     dictionary: ($) =>
       seq(
         "{",
-        optional(commaSep1($.key_value_pair)),
+        optional(commaSep1(
+          choice(
+            $.key_value_pair,
+            $.splat
+          )
+        )),
         optional(","),
         "}"
       ),
 
     key_value_pair: ($) => seq($.expression, ":", $.expression),
 
-    // parenthesized_expression: ($) =>
-    //   prec(
-    //     1,
-    //     seq("(", $.expression, ")")
-    //   ),
+    parenthesized_expression: ($) => seq("(", $.expression, ")"),
 
     escape_sequence: _ => token.immediate(prec(1, seq(
       '\\',

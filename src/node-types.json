@@ -29,6 +29,10 @@
         {
           "type": "keyword_argument",
           "named": true
+        },
+        {
+          "type": "splat",
+          "named": true
         }
       ]
     }
@@ -107,14 +111,6 @@
           },
           {
             "type": "//",
-            "named": false
-          },
-          {
-            "type": "<<",
-            "named": false
-          },
-          {
-            "type": ">>",
             "named": false
           },
           {
@@ -268,6 +264,10 @@
           "named": true
         },
         {
+          "type": "statement_binary_operator",
+          "named": true
+        },
+        {
           "type": "timeline_statement",
           "named": true
         },
@@ -291,6 +291,11 @@
     }
   },
   {
+    "type": "boolean",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "dictionary",
     "named": true,
     "fields": {},
@@ -300,6 +305,10 @@
       "types": [
         {
           "type": "key_value_pair",
+          "named": true
+        },
+        {
+          "type": "splat",
           "named": true
         }
       ]
@@ -414,6 +423,10 @@
         {
           "type": "expression",
           "named": true
+        },
+        {
+          "type": "splat",
+          "named": true
         }
       ]
     }
@@ -496,6 +509,10 @@
           "named": true
         },
         {
+          "type": "statement_binary_operator",
+          "named": true
+        },
+        {
           "type": "timeline_statement",
           "named": true
         },
@@ -513,6 +530,21 @@
         },
         {
           "type": "with_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parenthesized_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -569,6 +601,10 @@
           "named": true
         },
         {
+          "type": "boolean",
+          "named": true
+        },
+        {
           "type": "dictionary",
           "named": true
         },
@@ -585,7 +621,15 @@
           "named": true
         },
         {
+          "type": "null",
+          "named": true
+        },
+        {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "slice",
           "named": true
         },
         {
@@ -593,6 +637,107 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "slice",
+    "named": true,
+    "fields": {
+      "object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "primary_expression",
+            "named": true
+          }
+        ]
+      },
+      "slice": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "expression",
+            "named": true
+          },
+          {
+            "type": "splat",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "splat",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "primary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "statement_binary_operator",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "predicate",
+            "named": true
+          },
+          {
+            "type": "unification",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "and",
+            "named": false
+          },
+          {
+            "type": "or",
+            "named": false
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "predicate",
+            "named": true
+          },
+          {
+            "type": "unification",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -819,20 +964,57 @@
   {
     "type": "unification",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "predicate_definition",
-          "named": true
-        }
-      ]
+    "fields": {
+      "lhs": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "!=",
+            "named": false
+          },
+          {
+            "type": "<<",
+            "named": false
+          },
+          {
+            "type": "=",
+            "named": false
+          },
+          {
+            "type": "==",
+            "named": false
+          },
+          {
+            "type": ">>",
+            "named": false
+          }
+        ]
+      },
+      "rhs": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          },
+          {
+            "type": "predicate_definition",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -872,6 +1054,10 @@
         }
       ]
     }
+  },
+  {
+    "type": "!=",
+    "named": false
   },
   {
     "type": "%",
@@ -914,6 +1100,10 @@
     "named": false
   },
   {
+    "type": "...",
+    "named": false
+  },
+  {
     "type": "/",
     "named": false
   },
@@ -935,6 +1125,10 @@
   },
   {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": "==",
     "named": false
   },
   {
@@ -966,6 +1160,10 @@
     "named": false
   },
   {
+    "type": "and",
+    "named": false
+  },
+  {
     "type": "case",
     "named": false
   },
@@ -984,6 +1182,10 @@
   {
     "type": "escape_sequence",
     "named": true
+  },
+  {
+    "type": "false",
+    "named": false
   },
   {
     "type": "file",
@@ -1010,8 +1212,16 @@
     "named": false
   },
   {
+    "type": "null",
+    "named": true
+  },
+  {
     "type": "number",
     "named": true
+  },
+  {
+    "type": "or",
+    "named": false
   },
   {
     "type": "string_end",
@@ -1022,7 +1232,15 @@
     "named": true
   },
   {
+    "type": "test",
+    "named": false
+  },
+  {
     "type": "timeline",
+    "named": false
+  },
+  {
+    "type": "true",
     "named": false
   },
   {

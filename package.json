@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-crystal-walnut",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Crystal walnut grammar",
   "main": "bindings/node",
   "types": "bindings/node",

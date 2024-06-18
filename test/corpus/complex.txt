@@ -91,3 +91,150 @@ timeline:
             (expression
               (primary_expression
                 (number)))))))
+
+===============================
+Either and all
+================================
+
+either:
+    all:
+        a = "mcbob"
+        b = "bob"
+    all:
+        b = "bill"
+        a = "bob"
+a = "mcbob"
+
+------------------------------
+
+    (module
+      (either_statement
+        (block
+          (all_statement
+            (block
+              (unification
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (string
+                      (string_start)
+                      (string_content)
+                      (string_end)))))
+              (unification
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (string
+                      (string_start)
+                      (string_content)
+                      (string_end)))))))
+          (all_statement
+            (block
+              (unification
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (string
+                      (string_start)
+                      (string_content)
+                      (string_end)))))
+              (unification
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (string
+                      (string_start)
+                      (string_content)
+                      (string_end)))))))))
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (expression
+          (primary_expression
+            (string
+              (string_start)
+              (string_content)
+              (string_end))))))
+
+
+===============================
+Either and all
+================================
+
+  either:
+      all:
+          a = "mcbob"
+          b = "bob"
+      all:
+          b = "bill"
+          a = "bob"
+  a = "mcbob"
+
+------------------------------
+
+    (module
+      (either_statement
+        (block
+          (all_statement
+            (block
+              (unification
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (string
+                      (string_start)
+                      (string_content)
+                      (string_end)))))
+              (unification
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (string
+                      (string_start)
+                      (string_content)
+                      (string_end)))))))
+          (all_statement
+            (block
+              (unification
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (string
+                      (string_start)
+                      (string_content)
+                      (string_end)))))
+              (unification
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (string
+                      (string_start)
+                      (string_content)
+                      (string_end)))))))))
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (expression
+          (primary_expression
+            (string
+              (string_start)
+              (string_content)
+              (string_end))))))
