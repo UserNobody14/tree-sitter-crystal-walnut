@@ -1,0 +1,23 @@
+===============================
+Comments
+================================
+
+# this is a comment
+// so is this
+elseitem = "this is not"
+
+-----------------
+
+    (module
+      (comment)
+      (comment)
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (expression
+          (primary_expression
+            (string
+              (string_start)
+              (string_content)
+              (string_end))))))

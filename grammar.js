@@ -34,6 +34,12 @@ const PREC = {
 module.exports = grammar({
   name: "cwal",
 
+  extras: $ => [
+    $.comment,
+    /[\s\f\uFEFF\u2060\u200B]|\r?\n/,
+    $.line_continuation,
+  ],
+
   externals: ($) => [
     $._newline,
     $._indent,
@@ -427,6 +433,11 @@ module.exports = grammar({
       ),
     ))),
     _not_escape_sequence: _ => token.immediate('\\'),
+
+    line_continuation: _ => token(seq('\\', choice(seq(optional('\r'), '\n'), '\0'))),
+    comment: _ => token(seq(choice(
+      '#', '//'
+    ), /.*/)),
   },
 });
 

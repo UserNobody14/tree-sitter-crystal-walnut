@@ -1254,6 +1254,10 @@
     "named": false
   },
   {
+    "type": "comment",
+    "named": true
+  },
+  {
     "type": "either",
     "named": false
   },
@@ -1296,6 +1300,10 @@
   {
     "type": "in",
     "named": false
+  },
+  {
+    "type": "line_continuation",
+    "named": true
   },
   {
     "type": "linear",
