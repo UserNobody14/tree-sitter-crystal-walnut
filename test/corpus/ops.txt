@@ -18,21 +18,24 @@ timeline:
                 (identifier)))
             (expression
               (binary_operator
-                (primary_expression
-                  (number))
-                (primary_expression
-                  (number)))))
+                (expression
+                  (primary_expression
+                    (number)))
+                (expression
+                  (primary_expression
+                    (number))))))
       (unification
             (expression
               (primary_expression
                 (identifier)))
             (expression
               (binary_operator
-                (primary_expression
-                  (number))
-                (primary_expression
-                  (identifier))))))))
-
+                (expression
+                  (primary_expression
+                    (number)))
+                (expression
+                  (primary_expression
+                    (identifier)))))))))
 ================================================================================
 Unary
 ================================================================================

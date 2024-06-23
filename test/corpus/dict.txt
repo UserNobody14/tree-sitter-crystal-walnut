@@ -1,0 +1,61 @@
+=================================
+Items
+=================================
+
+dct = {"check": "other"}
+
+------------------------------
+
+    (module
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (expression
+          (primary_expression
+            (dictionary
+              (key_value_pair
+                (expression
+                  (primary_expression
+                    (string
+                      (string_start)
+                      (string_content)
+                      (string_end))))
+                (expression
+                  (primary_expression
+                    (string
+                      (string_start)
+                      (string_content)
+                      (string_end))))))))))
+
+
+=================================
+Items
+=================================
+
+dct = {"check": other}
+
+------------------------------
+
+    (module
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (expression
+          (primary_expression
+            (dictionary
+              (key_value_pair
+                (expression
+                  (primary_expression
+                    (string
+                      (string_start)
+                      (string_content)
+                      (string_end))))
+                (expression
+                  (primary_expression
+
+                    (identifier)
+
+                      ))))))))
+

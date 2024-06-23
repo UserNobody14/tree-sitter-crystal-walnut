@@ -1,0 +1,128 @@
+=================================
+Items
+=================================
+
+grammar_v1 = (str, ast) =>
+    either:
+        all:
+            str = predname + "(" + remaining + ")"
+
+            regex2("/\\w+", predname)
+            grammar_v1(remaining, astremaining)
+            ast = {"type": "predicate","name": predname,"args": astremaining,}
+        all:
+            fail()
+
+------------------------------
+
+    (module
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (predicate_definition
+          (identifier)
+          (identifier)
+          (block
+            (either_statement
+              (block
+                (all_statement
+                  (block
+                    (unification
+                      (expression
+                        (primary_expression
+                          (identifier)))
+                      (expression
+                        (binary_operator
+                          (expression
+                            (binary_operator
+                              (expression
+                                (binary_operator
+                                  (expression
+                                    (primary_expression
+                                      (identifier)))
+                                  (expression
+                                    (primary_expression
+                                      (string
+                                        (string_start)
+                                        (string_content)
+                                        (string_end))))))
+                              (expression
+                                (primary_expression
+                                  (identifier)))))
+                          (expression
+                            (primary_expression
+                              (string
+                                (string_start)
+                                (string_content)
+                                (string_end)))))))
+                    (predicate
+                      (primary_expression
+                        (identifier))
+                      (argument_list
+                        (expression
+                          (primary_expression
+                            (string
+                              (string_start)
+                              (string_content
+                                (escape_sequence))
+                              (string_end))))
+                        (expression
+                          (primary_expression
+                            (identifier)))))
+                    (predicate
+                      (primary_expression
+                        (identifier))
+                      (argument_list
+                        (expression
+                          (primary_expression
+                            (identifier)))
+                        (expression
+                          (primary_expression
+                            (identifier)))))
+                    (unification
+                      (expression
+                        (primary_expression
+                          (identifier)))
+                      (expression
+                        (primary_expression
+                          (dictionary
+                            (key_value_pair
+                              (expression
+                                (primary_expression
+                                  (string
+                                    (string_start)
+                                    (string_content)
+                                    (string_end))))
+                              (expression
+                                (primary_expression
+                                  (string
+                                    (string_start)
+                                    (string_content)
+                                    (string_end)))))
+                            (key_value_pair
+                              (expression
+                                (primary_expression
+                                  (string
+                                    (string_start)
+                                    (string_content)
+                                    (string_end))))
+                              (expression
+                                (primary_expression
+                                  (identifier))))
+                            (key_value_pair
+                              (expression
+                                (primary_expression
+                                  (string
+                                    (string_start)
+                                    (string_content)
+                                    (string_end))))
+                              (expression
+                                (primary_expression
+                                  (identifier))))))))))
+                (all_statement
+                  (block
+                    (predicate
+                      (primary_expression
+                        (identifier))
+                      (argument_list))))))))))

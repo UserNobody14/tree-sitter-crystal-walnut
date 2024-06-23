@@ -206,10 +206,10 @@ module.exports = grammar({
 
       // @ts-ignore
       return choice(...table.map(([fn, operator, precedence]) => fn(precedence, seq(
-        field('left', $.primary_expression),
+        field('left', $.expression),
         // @ts-ignore
         field('operator', operator),
-        field('right', $.primary_expression),
+        field('right', $.expression),
       ))));
     },
 
