@@ -82,6 +82,9 @@ module.exports = grammar({
       $.typedef_statement,
       $.all_statement,
       $.either_statement,
+      $.for_control_statement,
+      $.test_statement,
+      $.fresh_statement,
     ),
 
     timeline_statement: ($) => seq("timeline", optional($.identifier), ':', $._suite),
@@ -89,6 +92,15 @@ module.exports = grammar({
     when_statement: ($) => seq("when", $.expression, ":", $._suite),
 
     match_statement: ($) => seq("match", $.expression, ":", $._match_suite),
+
+    control_type: ($) => choice(
+      'all',
+      'any',
+    ),
+
+    for_control_statement: ($) => seq("for", $.control_type, $.expression, "in", $.expression, ":", $._suite),
+
+    fresh_statement: ($) => seq("fresh", commaSep1($.identifier), ":", $._suite),
 
     _match_suite: ($) => choice(
       seq($._indent, $.match_block),
@@ -152,8 +164,8 @@ module.exports = grammar({
         [prec.left, '|', PREC.bitwise_or],
         [prec.left, '&', PREC.bitwise_and],
         [prec.left, '^', PREC.xor],
-        [prec.left, '<<', PREC.shift],
-        [prec.left, '>>', PREC.shift],
+        // [prec.left, '<<', PREC.shift],
+        // [prec.left, '>>', PREC.shift],
       ];
 
       // @ts-ignore

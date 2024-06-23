@@ -198,14 +198,6 @@
             "named": false
           },
           {
-            "type": "<<",
-            "named": false
-          },
-          {
-            "type": ">>",
-            "named": false
-          },
-          {
             "type": "@",
             "named": false
           },
@@ -256,6 +248,14 @@
           "named": true
         },
         {
+          "type": "for_control_statement",
+          "named": true
+        },
+        {
+          "type": "fresh_statement",
+          "named": true
+        },
+        {
           "type": "match_statement",
           "named": true
         },
@@ -265,6 +265,10 @@
         },
         {
           "type": "statement_binary_operator",
+          "named": true
+        },
+        {
+          "type": "test_statement",
           "named": true
         },
         {
@@ -292,6 +296,11 @@
   },
   {
     "type": "boolean",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "control_type",
     "named": true,
     "fields": {}
   },
@@ -347,6 +356,48 @@
         },
         {
           "type": "unary_operator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "for_control_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "control_type",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fresh_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -501,6 +552,14 @@
           "named": true
         },
         {
+          "type": "for_control_statement",
+          "named": true
+        },
+        {
+          "type": "fresh_statement",
+          "named": true
+        },
+        {
           "type": "match_statement",
           "named": true
         },
@@ -510,6 +569,10 @@
         },
         {
           "type": "statement_binary_operator",
+          "named": true
+        },
+        {
+          "type": "test_statement",
           "named": true
         },
         {
@@ -777,6 +840,25 @@
         },
         {
           "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "test_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -1164,6 +1246,10 @@
     "named": false
   },
   {
+    "type": "any",
+    "named": false
+  },
+  {
     "type": "case",
     "named": false
   },
@@ -1192,11 +1278,23 @@
     "named": false
   },
   {
+    "type": "for",
+    "named": false
+  },
+  {
+    "type": "fresh",
+    "named": false
+  },
+  {
     "type": "identifier",
     "named": true
   },
   {
     "type": "import",
+    "named": false
+  },
+  {
+    "type": "in",
     "named": false
   },
   {
