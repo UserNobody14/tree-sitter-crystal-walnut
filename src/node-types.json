@@ -5,7 +5,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "block",
@@ -418,7 +418,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "block",
@@ -487,7 +487,7 @@
     },
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "block",
@@ -527,7 +527,7 @@
     },
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "block",
@@ -1057,230 +1057,92 @@
     "named": true,
     "fields": {
       "all": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ":",
-            "named": false
-          },
-          {
-            "type": "all",
-            "named": false
-          }
-        ]
-      },
-      "control_type": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "control_type",
+            "type": "all_statement",
             "named": true
           }
         ]
       },
       "data": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": ":",
-            "named": false
-          },
-          {
-            "type": "data",
-            "named": false
-          },
-          {
-            "type": "identifier",
+            "type": "data_statement",
             "named": true
           }
         ]
       },
       "either": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": ":",
-            "named": false
-          },
-          {
-            "type": "either",
-            "named": false
+            "type": "either_statement",
+            "named": true
           }
         ]
       },
       "for": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": ":",
-            "named": false
-          },
-          {
-            "type": "control_type",
+            "type": "for_control_statement",
             "named": true
-          },
-          {
-            "type": "destructuring_expression",
-            "named": true
-          },
-          {
-            "type": "expression",
-            "named": true
-          },
-          {
-            "type": "for",
-            "named": false
-          },
-          {
-            "type": "in",
-            "named": false
           }
         ]
       },
       "fresh": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": ":",
-            "named": false
-          },
-          {
-            "type": "fresh",
-            "named": false
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "nominal",
-            "named": false
-          }
-        ]
-      },
-      "is_nominal": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "nominal",
-            "named": false
-          }
-        ]
-      },
-      "iterable": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "expression",
+            "type": "fresh_statement",
             "named": true
           }
         ]
       },
       "test": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ":",
-            "named": false
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "test",
-            "named": false
-          }
-        ]
-      },
-      "timeline": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ":",
-            "named": false
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "timeline",
-            "named": false
-          }
-        ]
-      },
-      "variable": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "destructuring_expression",
+            "type": "test_statement",
             "named": true
           }
         ]
       },
-      "variables": {
-        "multiple": true,
+      "timeline": {
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "identifier",
+            "type": "timeline_statement",
             "named": true
           }
         ]
       },
       "when": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": ":",
-            "named": false
-          },
-          {
-            "type": "predicate",
+            "type": "when_statement",
             "named": true
-          },
-          {
-            "type": "when",
-            "named": false
           }
         ]
       },
       "with": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": ":",
-            "named": false
-          },
-          {
-            "type": "predicate",
+            "type": "with_statement",
             "named": true
-          },
-          {
-            "type": "with",
-            "named": false
           }
         ]
       }
@@ -1334,7 +1196,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "block",
@@ -1353,7 +1215,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "block",

@@ -1459,9 +1459,63 @@ static const TSSymbol ts_alias_sequences[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE
   [10] = {
     [0] = sym_match_block,
   },
+  [18] = {
+    [0] = sym_data_statement,
+  },
+  [19] = {
+    [0] = sym_timeline_statement,
+  },
+  [20] = {
+    [0] = sym_when_statement,
+  },
+  [21] = {
+    [0] = sym_for_control_statement,
+  },
+  [22] = {
+    [0] = sym_fresh_statement,
+  },
+  [23] = {
+    [0] = sym_with_statement,
+  },
+  [24] = {
+    [0] = sym_all_statement,
+  },
+  [25] = {
+    [0] = sym_either_statement,
+  },
+  [26] = {
+    [0] = sym_test_statement,
+  },
 };
 
 static const uint16_t ts_non_terminal_alias_map[] = {
+  sym__data_statement_head, 2,
+    sym__data_statement_head,
+    sym_data_statement,
+  sym__timeline_statement_head, 2,
+    sym__timeline_statement_head,
+    sym_timeline_statement,
+  sym__when_statement_head, 2,
+    sym__when_statement_head,
+    sym_when_statement,
+  sym__for_control_statement_head, 2,
+    sym__for_control_statement_head,
+    sym_for_control_statement,
+  sym__fresh_statement_head, 2,
+    sym__fresh_statement_head,
+    sym_fresh_statement,
+  sym__with_statement_head, 2,
+    sym__with_statement_head,
+    sym_with_statement,
+  sym__all_statement_head, 2,
+    sym__all_statement_head,
+    sym_all_statement,
+  sym__either_statement_head, 2,
+    sym__either_statement_head,
+    sym_either_statement,
+  sym__test_statement_head, 2,
+    sym__test_statement_head,
+    sym_test_statement,
   0,
 };
 

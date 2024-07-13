@@ -162,16 +162,15 @@ module.exports = grammar({
 
 
     statement_head: ($) => choice(
-      field("data", $._data_statement_head),
-      field("timeline", $._timeline_statement_head),
-      field("when", $._when_statement_head),
-      // field("match", "match"),
-      field("with", $._with_statement_head),
-      field("all", $._all_statement_head),
-      field("either", $._either_statement_head),
-      field("for", $._for_control_statement_head),
-      field("test", $._test_statement_head),
-      field("fresh", $._fresh_statement_head),
+      field("data", alias($._data_statement_head, $.data_statement)),
+      field("timeline", alias($._timeline_statement_head, $.timeline_statement)),
+      field("when", alias($._when_statement_head, $.when_statement)),
+      field("with", alias($._with_statement_head, $.with_statement)),
+      field("all", alias($._all_statement_head, $.all_statement)),
+      field("either", alias($._either_statement_head, $.either_statement)),
+      field("for", alias($._for_control_statement_head, $.for_control_statement)),
+      field("test", alias($._test_statement_head, $.test_statement)),
+      field("fresh", alias($._fresh_statement_head, $.fresh_statement)),
     ),
 
     _sameline_block: ($) => choice(

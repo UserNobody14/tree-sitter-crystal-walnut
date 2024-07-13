@@ -284,7 +284,9 @@ c = (a, c) => either:
           (argument_definition
                       (destructuring_expression
                         (identifier)))
-          (statement_head)
+          (statement_head
+           (either_statement)
+          )
           (block
             (unification
               (expression
@@ -342,7 +344,9 @@ c = ([e, ...g], c: number) => either:
             (type_definition
               (type_application
                 (type_identifier))))
-          body: (statement_head)
+          body: (statement_head
+          either: (either_statement)
+          )
           body: (block
             (unification
               lhs: (expression
