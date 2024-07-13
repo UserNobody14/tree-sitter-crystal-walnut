@@ -75,12 +75,19 @@ module.exports = grammar({
         alias($._newline, $.block)
       ),
 
-    _simple_statement: ($) => choice($.unification, $.predicate),
+    _simple_statement: ($) => choice($.unification, $.predicate,
+      $.statement_binary_operator
+    ),
     _statement: ($) => choice(
-      $.statement_binary_operator,
-      $.unification, $.predicate, $._block_statement),
+      // $.statement_binary_operator,
+      // $.unification,
+      // $.predicate,
+      $._simple_statement,
+      $._block_statement
+    ),
 
     _block_statement: ($) => choice(
+      $.data_statement,
       $.timeline_statement,
       $.when_statement,
       $.match_statement,
@@ -93,9 +100,11 @@ module.exports = grammar({
       $.fresh_statement,
     ),
 
+    data_statement: ($) => seq("data", $.identifier, ":", $._suite),
+
     timeline_statement: ($) => seq("timeline", optional($.identifier), ':', $._suite),
 
-    when_statement: ($) => seq("when", $.expression, ":", $._suite),
+    when_statement: ($) => seq("when", $.predicate, ":", $._suite),
 
     match_statement: ($) => seq("match", $.expression, ":", $._match_suite),
 
@@ -104,9 +113,23 @@ module.exports = grammar({
       'any',
     ),
 
-    for_control_statement: ($) => seq("for", $.control_type, $.expression, "in", $.expression, ":", $._suite),
+    for_control_statement: ($) => seq("for",
+      field("control_type", $.control_type),
+      field("variable", $.destructuring_expression),
+      "in",
+      field("iterable", $.expression),
+      ":", $._suite),
 
-    fresh_statement: ($) => seq("fresh", commaSep1($.identifier), ":", $._suite),
+    fresh_statement: ($) => seq("fresh",
+      field("is_nominal", optional("nominal")),
+      field("variables", commaSep1($.identifier)), ":", $._suite),
+
+    /// Other important statement types to play around with
+
+    // Encodes nominal logic programming (?)
+    // nominal_statement: ($) => seq("nominal", commaSep1($.expression), ":", $._suite),
+
+    ///
 
     _match_suite: ($) => choice(
       seq($._indent, $.match_block),
@@ -114,9 +137,9 @@ module.exports = grammar({
     ),
 
     match_block: ($) => repeat1($.match_case),
-
     match_case: ($) => seq("case", $.expression, ":", $._suite),
 
+    // TODO: with should take in a pred call / partial pred call (?)
     with_statement: ($) => seq("with", $.expression, ":", $._suite),
     all_statement: ($) => seq("all", ":", $._suite),
     either_statement: ($) => seq("either", ":", $._suite),
@@ -258,6 +281,15 @@ module.exports = grammar({
 
     identifier: (_) => /[_\p{XID_Start}][_\p{XID_Continue}]*/,
 
+    destructuring_expression: ($) => choice(
+      $.identifier,
+      $.parenthesized_destructuring_expression,
+      $.list,
+      $.dictionary
+    ),
+
+    parenthesized_destructuring_expression: ($) => seq("(", $.destructuring_expression, ")"),
+
     keyword_identifier: ($) =>
       choice(
         prec(
@@ -306,6 +338,8 @@ module.exports = grammar({
         "=",
         field("value", $.expression)
       ),
+
+    // argument_definition: ($) => seq($.identifier, optional(seq(":", $.type_definition)), ),
 
     predicate_definition: ($) =>
       seq(

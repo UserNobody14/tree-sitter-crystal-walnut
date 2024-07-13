@@ -208,3 +208,35 @@ c = a[2]
               (expression
                 (primary_expression
                   (number))))))))
+
+================================================================================
+Initial statements nominal fresh
+================================================================================
+fresh nominal a:
+  b = 2
+  c = a[2]
+--------------------------------------------------------------------------------
+
+    (module
+      (fresh_statement
+        (identifier)
+        (block
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (number))))
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (slice
+                  (primary_expression
+                    (identifier))
+                  (expression
+                    (primary_expression
+                      (number))))))))))

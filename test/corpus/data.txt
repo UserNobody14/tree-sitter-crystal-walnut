@@ -1,0 +1,40 @@
+=================================
+Items
+=================================
+
+
+data Dct:
+    key = string
+    val = number
+
+g = z
+
+------------------------------
+
+
+    (module
+      (data_statement
+        (identifier)
+        (block
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (identifier))))
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (identifier))))))
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (expression
+          (primary_expression
+            (identifier))))
+)

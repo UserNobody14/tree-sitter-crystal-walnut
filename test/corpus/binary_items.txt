@@ -35,3 +35,72 @@ str = predname + "(" + remaining + ")"
                   (string_start)
                   (string_content)
                   (string_end))))))))
+
+=====================================
+Binary Statement Ops
+=====================================
+
+str = predname or str = "ggg"
+
+-------------------------------------
+
+
+    (module
+      (statement_binary_operator
+        (unification
+          (expression
+            (primary_expression
+              (identifier)))
+          (expression
+            (primary_expression
+              (identifier))))
+        (unification
+          (expression
+            (primary_expression
+              (identifier)))
+          (expression
+            (primary_expression
+              (string
+                (string_start)
+                (string_content)
+                (string_end)))))))
+
+
+=====================================
+Binary Statement Ops 2
+=====================================
+
+str = predname or str = "ggg" or str = "dddd"
+
+-------------------------------------
+
+  (module
+      (statement_binary_operator
+        (statement_binary_operator
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (identifier))))
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (string
+                  (string_start)
+                  (string_content)
+                  (string_end))))))
+        (unification
+          (expression
+            (primary_expression
+              (identifier)))
+          (expression
+            (primary_expression
+              (string
+                (string_start)
+                (string_content)
+                (string_end)))))))
