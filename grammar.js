@@ -18,6 +18,7 @@ const PREC = {
   parenthesized_list_splat: 1,
   or: 10,
   and: 11,
+  coalesce: 12,
   not: 12,
   compare: 13,
   bitwise_or: 14,
@@ -76,7 +77,9 @@ module.exports = grammar({
       ),
 
     _simple_statement: ($) => choice($.unification, $.predicate,
-      $.statement_binary_operator
+      $.statement_binary_operator,
+      $.typedef_statement,
+      $.type_assignment_statement,
     ),
     _statement: ($) => choice(
       // $.statement_binary_operator,
@@ -92,7 +95,7 @@ module.exports = grammar({
       $.when_statement,
       $.match_statement,
       $.with_statement,
-      $.typedef_statement,
+      // $.typedef_statement,
       $.all_statement,
       $.either_statement,
       $.for_control_statement,
@@ -100,11 +103,14 @@ module.exports = grammar({
       $.fresh_statement,
     ),
 
-    data_statement: ($) => seq("data", $.identifier, ":", $._suite),
+    _data_statement_head: ($) => seq("data", $.identifier, ":"),
+    data_statement: ($) => seq($._data_statement_head, $._suite),
 
-    timeline_statement: ($) => seq("timeline", optional($.identifier), ':', $._suite),
+    _timeline_statement_head: ($) => seq("timeline", optional($.identifier), ':'),
+    timeline_statement: ($) => seq($._timeline_statement_head,$._suite),
 
-    when_statement: ($) => seq("when", $.predicate, ":", $._suite),
+    _when_statement_head: ($) => seq("when", $.predicate, ":"),
+    when_statement: ($) => seq($._when_statement_head,$._suite),
 
     match_statement: ($) => seq("match", $.expression, ":", $._match_suite),
 
@@ -113,16 +119,19 @@ module.exports = grammar({
       'any',
     ),
 
-    for_control_statement: ($) => seq("for",
+    _for_control_statement_head: ($) => seq(
+      "for",
       field("control_type", $.control_type),
       field("variable", $.destructuring_expression),
       "in",
       field("iterable", $.expression),
-      ":", $._suite),
-
-    fresh_statement: ($) => seq("fresh",
+      ":",
+    ),
+    for_control_statement: ($) => seq($._for_control_statement_head, $._suite),
+    _fresh_statement_head: ($) => seq("fresh",
       field("is_nominal", optional("nominal")),
-      field("variables", commaSep1($.identifier)), ":", $._suite),
+      field("variables", commaSep1($.identifier)), ":"),
+    fresh_statement: ($) => seq($._fresh_statement_head, $._suite),
 
     /// Other important statement types to play around with
 
@@ -139,25 +148,67 @@ module.exports = grammar({
     match_block: ($) => repeat1($.match_case),
     match_case: ($) => seq("case", $.expression, ":", $._suite),
 
-    // TODO: with should take in a pred call / partial pred call (?)
-    with_statement: ($) => seq("with", $.expression, ":", $._suite),
-    all_statement: ($) => seq("all", ":", $._suite),
-    either_statement: ($) => seq("either", ":", $._suite),
+    _with_statement_head: ($) => seq("with", $.predicate, ":"),
+    with_statement: ($) => seq($._with_statement_head, $._suite),
+
+    _all_statement_head: ($) => seq("all", ":"),
+    all_statement: ($) => seq($._all_statement_head, $._suite),
+
+    _either_statement_head: ($) => seq("either", ":"),
+    either_statement: ($) => seq($._either_statement_head, $._suite),
+
+    _test_statement_head: ($) => seq("test", optional($.identifier), ":"),
+    test_statement: ($) => seq($._test_statement_head, $._suite),
 
 
+    statement_head: ($) => choice(
+      field("data", $._data_statement_head),
+      field("timeline", $._timeline_statement_head),
+      field("when", $._when_statement_head),
+      // field("match", "match"),
+      field("with", $._with_statement_head),
+      field("all", $._all_statement_head),
+      field("either", $._either_statement_head),
+      field("for", $._for_control_statement_head),
+      field("test", $._test_statement_head),
+      field("fresh", $._fresh_statement_head),
+    ),
+
+    _sameline_block: ($) => choice(
+      $._simple_statement,
+      seq(optional($.statement_head), $._suite),
+    ),
+
+    // Assigns a type definition to a variable
+    type_assignment_statement: ($) => seq("type", $.identifier, optional(
+      seq(
+        "<",
+        commaSep1($.type_definition),
+        ">"
+      )
+    ), "=", $.type_definition),
+    // Assigns a variable to an already defined type
     typedef_statement: ($) => seq($.identifier, "::", $.type_definition),
 
     type_definition: ($) => choice(
-      // $.type_union,
-      // $.type_intersection,
       $.binary_type_operator,
       $.type_object,
       $.type_list,
-      // $.type_dictionary,
-      $.type_identifier,
+      $.type_application,
     ),
 
-    test_statement: ($) => seq("test", optional($.identifier), ':', $._suite),
+    type_application: ($) => seq(
+      alias($.identifier, $.type_identifier),
+      optional(
+        seq(
+          "<",
+          commaSep1($.type_definition),
+          ">"
+        )
+      )
+  ),
+
+
 
     // type_union: ($) => seq($.type_definition, "|", $.type_definition),
     // type_union: ($) => prec.left(
@@ -217,6 +268,9 @@ module.exports = grammar({
 
     binary_operator: $ => {
       const table = [
+        [prec.left, '||', PREC.or],
+        [prec.left, '&&', PREC.and],
+        [prec.left, '??', PREC.coalesce],
         [prec.left, '+', PREC.plus],
         [prec.left, '-', PREC.plus],
         [prec.left, '*', PREC.times],
@@ -225,12 +279,10 @@ module.exports = grammar({
         [prec.left, '%', PREC.times],
         [prec.left, '//', PREC.times],
         [prec.right, '**', PREC.power],
-        // TODO: make | and & above unification, and act as conj/disj
+        // TODO: make || and && act as conj/disj on the var level (?)
         [prec.left, '|', PREC.bitwise_or],
         [prec.left, '&', PREC.bitwise_and],
         [prec.left, '^', PREC.xor],
-        // [prec.left, '<<', PREC.shift],
-        // [prec.left, '>>', PREC.shift],
       ];
 
       // @ts-ignore
@@ -339,16 +391,31 @@ module.exports = grammar({
         field("value", $.expression)
       ),
 
-    // argument_definition: ($) => seq($.identifier, optional(seq(":", $.type_definition)), ),
+    argument_definition: ($) => seq($.destructuring_expression, optional(seq(":", $.type_definition)), ),
 
     predicate_definition: ($) =>
       seq(
         "(",
         // list of arguments
-        optional(commaSep1($.identifier)),
+        field("arguments", commaSep1($.argument_definition)),
+        optional(
+          seq(
+            ",",
+            field("default_args", commaSep1($.keyword_argument))
+          )
+        ),
+        optional(
+          seq(
+            ",",
+            field("rest_args", $.splat)
+          )
+        ),
         ")",
+        field("determinacy",
+        optional($.type_definition)),
         "=>",
-        $._suite
+        // This allows the user to (optionally) start the statement on the same line
+        field("body", $._sameline_block),
       ),
 
     predicate: ($) =>
@@ -440,11 +507,13 @@ module.exports = grammar({
     dictionary: ($) =>
       seq(
         "{",
-        optional(commaSep1(
-          choice(
-            $.key_value_pair,
-            $.splat
-          )
+        optional(
+          commaSep1(
+            choice(
+              $.key_value_pair,
+              $.splat,
+              $.identifier
+            )
         )),
         optional(","),
         "}"

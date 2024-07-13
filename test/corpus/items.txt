@@ -1,5 +1,5 @@
 =================================
-Items
+Items Initial
 =================================
 
 grammar_v1 = (str, ast) =>
@@ -21,8 +21,12 @@ grammar_v1 = (str, ast) =>
           (primary_expression
             (identifier)))
         (predicate_definition
-          (identifier)
-          (identifier)
+          (argument_definition
+            (destructuring_expression
+              (identifier)))
+          (argument_definition
+            (destructuring_expression
+              (identifier)))
           (block
             (either_statement
               (block
@@ -228,9 +232,13 @@ type_map_for_file = (filestring, tmap) =>
           (primary_expression
             (identifier)))
         rhs: (predicate_definition
-          (identifier)
-          (identifier)
-          (block
+          arguments: (argument_definition
+            (destructuring_expression
+              (identifier)))
+          arguments: (argument_definition
+            (destructuring_expression
+              (identifier)))
+          body: (block
             (either_statement
               (block
                 (all_statement
@@ -337,10 +345,16 @@ type_map_for_file = (filestring, tmap) =>
           (primary_expression
             (identifier)))
         rhs: (predicate_definition
-          (identifier)
-          (identifier)
-          (identifier)
-          (block
+          arguments: (argument_definition
+            (destructuring_expression
+              (identifier)))
+          arguments: (argument_definition
+            (destructuring_expression
+              (identifier)))
+          arguments: (argument_definition
+            (destructuring_expression
+              (identifier)))
+          body: (block
             (unification
               lhs: (expression
                 (primary_expression
@@ -401,9 +415,13 @@ type_map_for_file = (filestring, tmap) =>
           (primary_expression
             (identifier)))
         rhs: (predicate_definition
-          (identifier)
-          (identifier)
-          (block
+arguments: (argument_definition
+            (destructuring_expression
+              (identifier)))
+arguments: (argument_definition
+            (destructuring_expression
+              (identifier)))
+          body: (block
             (either_statement
               (block
                 (all_statement
@@ -474,8 +492,10 @@ type_map_for_file = (filestring, tmap) =>
                         (primary_expression
                           (identifier)))
                       rhs: (predicate_definition
-                        (identifier)
-                        (block
+                        arguments: (argument_definition
+            (destructuring_expression
+              (identifier)))
+                        body: (block
                           (predicate
                             (primary_expression
                               (identifier))
@@ -508,8 +528,10 @@ type_map_for_file = (filestring, tmap) =>
                         (primary_expression
                           (identifier)))
                       rhs: (predicate_definition
-                        (identifier)
-                        (block
+                        arguments: (argument_definition
+            (destructuring_expression
+              (identifier)))
+                        body: (block
                           (predicate
                             (primary_expression
                               (identifier))
@@ -703,9 +725,13 @@ type_map_for_file = (filestring, tmap) =>
           (primary_expression
             (identifier)))
         rhs: (predicate_definition
-          (identifier)
-          (identifier)
-          (block
+arguments: (argument_definition
+            (destructuring_expression
+              (identifier)))
+arguments: (argument_definition
+            (destructuring_expression
+              (identifier)))
+          body: (block
             (either_statement
               (block
                 (unification
@@ -762,9 +788,13 @@ type_map_for_file = (filestring, tmap) =>
           (primary_expression
             (identifier)))
         rhs: (predicate_definition
-          (identifier)
-          (identifier)
-          (block
+arguments: (argument_definition
+            (destructuring_expression
+              (identifier)))
+arguments: (argument_definition
+            (destructuring_expression
+              (identifier)))
+          body: (block
             (predicate
               (primary_expression
                 (identifier))

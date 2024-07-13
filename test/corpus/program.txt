@@ -48,8 +48,12 @@ c = (a, c) =>
           (primary_expression
             (identifier)))
         (predicate_definition
-          (identifier)
-          (identifier)
+ (argument_definition
+            (destructuring_expression
+              (identifier)))
+ (argument_definition
+            (destructuring_expression
+              (identifier)))
           (block
             (unification
               (expression
@@ -95,8 +99,12 @@ c = (a, c) =>
           (primary_expression
             (identifier)))
         (predicate_definition
-          (identifier)
-          (identifier)
+ (argument_definition
+            (destructuring_expression
+              (identifier)))
+(argument_definition
+            (destructuring_expression
+              (identifier)))
           (block
             (unification
               (expression
@@ -117,8 +125,12 @@ c = (a, c) =>
           (primary_expression
             (identifier)))
         (predicate_definition
-          (identifier)
-          (identifier)
+ (argument_definition
+            (destructuring_expression
+              (identifier)))
+ (argument_definition
+            (destructuring_expression
+              (identifier)))
           (block
             (unification
               (expression
@@ -240,3 +252,109 @@ fresh nominal a:
                   (expression
                     (primary_expression
                       (number))))))))))
+
+
+================================================================================
+Predicate improvements
+================================================================================
+
+b = 2
+c = (a, c) => either:
+    g = 5
+    e = 6
+
+--------------------------------------------------------------------------------
+
+ (module
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (expression
+          (primary_expression
+            (number))))
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (predicate_definition
+          (argument_definition
+                      (destructuring_expression
+                        (identifier)))
+          (argument_definition
+                      (destructuring_expression
+                        (identifier)))
+          (statement_head)
+          (block
+            (unification
+              (expression
+                (primary_expression
+                  (identifier)))
+              (expression
+                (primary_expression
+                  (number))))
+            (unification
+              (expression
+                (primary_expression
+                  (identifier)))
+              (expression
+                (primary_expression
+                  (number))))))))
+
+
+================================================================================
+Predicate improvements2
+================================================================================
+
+b = 2
+c = ([e, ...g], c: number) => either:
+    g = 5
+    e = 6
+
+--------------------------------------------------------------------------------
+
+
+    (module
+      (unification
+        lhs: (expression
+          (primary_expression
+            (identifier)))
+        rhs: (expression
+          (primary_expression
+            (number))))
+      (unification
+        lhs: (expression
+          (primary_expression
+            (identifier)))
+        rhs: (predicate_definition
+          arguments: (argument_definition
+            (destructuring_expression
+              (list
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (splat
+                  (primary_expression
+                    (identifier))))))
+          arguments: (argument_definition
+            (destructuring_expression
+              (identifier))
+            (type_definition
+              (type_application
+                (type_identifier))))
+          body: (statement_head)
+          body: (block
+            (unification
+              lhs: (expression
+                (primary_expression
+                  (identifier)))
+              rhs: (expression
+                (primary_expression
+                  (number))))
+            (unification
+              lhs: (expression
+                (primary_expression
+                  (identifier)))
+              rhs: (expression
+                (primary_expression
+                  (number))))))))

@@ -18,5 +18,5 @@ b :: number
       (typedef_statement
         (identifier)
         (type_definition
-          (type_identifier
-            (identifier)))))
+          (type_application
+            (type_identifier)))))

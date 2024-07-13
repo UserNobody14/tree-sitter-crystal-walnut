@@ -30,7 +30,7 @@ dct = {"check": "other"}
 
 
 =================================
-Items
+Variable
 =================================
 
 dct = {"check": other}
@@ -52,6 +52,58 @@ dct = {"check": other}
                       (string_start)
                       (string_content)
                       (string_end))))
+                (expression
+                  (primary_expression
+
+                    (identifier)
+
+                      ))))))))
+
+
+=================================
+Identifier
+=================================
+
+dct = {other}
+
+------------------------------
+
+    (module
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (expression
+          (primary_expression
+          (dictionary
+          (identifier)
+          )
+            ))))
+
+
+
+=================================
+Identifier to identifier
+=================================
+
+dct = {check: other}
+
+------------------------------
+
+    (module
+      (unification
+        (expression
+          (primary_expression
+            (identifier)))
+        (expression
+          (primary_expression
+            (dictionary
+              (key_value_pair
+                (expression
+                  (primary_expression
+                    (identifier)
+                      )
+                      )
                 (expression
                   (primary_expression
 
