@@ -440,6 +440,10 @@
           "named": true
         },
         {
+          "type": "predicate_expression",
+          "named": true
+        },
+        {
           "type": "primary_expression",
           "named": true
         },
@@ -874,6 +878,25 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "predicate_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "argument_list",
+          "named": true
+        },
+        {
+          "type": "primary_expression",
+          "named": true
+        }
+      ]
     }
   },
   {

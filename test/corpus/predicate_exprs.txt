@@ -1,0 +1,98 @@
+================================================================================
+Predicate expressions
+================================================================================
+
+all:
+    b = 2
+    dge(v)
+
+
+--------------------------------------------------------------------------------
+
+   (module
+      (all_statement
+        (block
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (number))))
+          (predicate
+            (primary_expression
+              (identifier))
+            (argument_list
+              (expression
+                (primary_expression
+                  (identifier))))))))
+
+================================================================================
+Predicate expressions
+================================================================================
+
+all:
+    b = dge(v)
+
+
+--------------------------------------------------------------------------------
+
+   (module
+      (all_statement
+        (block
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (predicate_expression
+            (primary_expression
+              (identifier))
+            (argument_list
+              (expression
+                (primary_expression
+                  (identifier)
+                  )
+                  ))
+                  )))
+          )))
+
+
+================================================================================
+Predicate expressions continued
+================================================================================
+
+all:
+    z(b) = dge(v)
+
+
+--------------------------------------------------------------------------------
+
+   (module
+      (all_statement
+        (block
+          (unification
+            (expression
+
+              (predicate_expression
+                (primary_expression
+                  (identifier))
+                (argument_list
+                  (expression
+                    (primary_expression
+                      (identifier)
+                      )
+                  )))
+              )
+            (expression
+              (predicate_expression
+            (primary_expression
+              (identifier))
+            (argument_list
+              (expression
+                (primary_expression
+                  (identifier)
+                  )
+                  ))
+                  )))
+          )))

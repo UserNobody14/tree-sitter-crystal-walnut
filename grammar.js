@@ -429,10 +429,19 @@ module.exports = grammar({
 
     // Expressions
 
-    expression: ($) => choice($.binary_operator, $.unary_operator, $.primary_expression),
+    expression: ($) =>
+      choice(
+        $.binary_operator,
+        $.unary_operator,
+        $.primary_expression
+      ),
 
     primary_expression: ($) =>
       choice(
+        alias(
+          prec(PREC.call, seq($.primary_expression, $.argument_list)),
+          $.predicate_expression
+        ),
         $.identifier,
         $.keyword_identifier,
         $.string,

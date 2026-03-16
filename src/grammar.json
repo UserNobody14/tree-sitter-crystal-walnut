@@ -2397,6 +2397,23 @@
         }
       ]
     },
+    "predicate_expression": {
+      "type": "PREC",
+      "value": 22,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "primary_expression"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "argument_list"
+          }
+        ]
+      }
+    },
     "block": {
       "type": "SEQ",
       "members": [
@@ -2423,6 +2440,14 @@
         {
           "type": "SYMBOL",
           "name": "unary_operator"
+        },
+        {
+          "type": "PREC",
+          "value": 22,
+          "content": {
+            "type": "SYMBOL",
+            "name": "predicate_expression"
+          }
         },
         {
           "type": "SYMBOL",
