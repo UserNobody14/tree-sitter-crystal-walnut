@@ -1,0 +1,406 @@
+================================================================================
+Slice and index assignment
+================================================================================
+
+all:
+    a[i] = 1
+    buf[n, m] = other
+
+
+--------------------------------------------------------------------------------
+
+   (module
+      (all_statement
+        (block
+          (unification
+            (expression
+              (primary_expression
+                (slice
+                  (primary_expression
+                    (identifier))
+                  (expression
+                    (primary_expression
+                      (identifier))))))
+            (expression
+              (primary_expression
+                (number))))
+          (unification
+            (expression
+              (primary_expression
+                (slice
+                  (primary_expression
+                    (identifier))
+                  (expression
+                    (primary_expression
+                      (identifier)))
+                  (expression
+                    (primary_expression
+                      (identifier))))))
+            (expression
+              (primary_expression
+                (identifier)))))))
+
+================================================================================
+Chained slice and attribute
+================================================================================
+
+all:
+    a[i][j] = 2
+    obj.attr = x
+    tbl.k[i] = v
+
+
+--------------------------------------------------------------------------------
+
+   (module
+      (all_statement
+        (block
+          (unification
+            (expression
+              (primary_expression
+                (slice
+                  (primary_expression
+                    (slice
+                      (primary_expression
+                        (identifier))
+                      (expression
+                        (primary_expression
+                          (identifier)))))
+                  (expression
+                    (primary_expression
+                      (identifier))))))
+            (expression
+              (primary_expression
+                (number))))
+          (unification
+            (expression
+              (primary_expression
+                (attribute
+                  (primary_expression
+                    (identifier))
+                  (identifier))))
+            (expression
+              (primary_expression
+                (identifier))))
+          (unification
+            (expression
+              (primary_expression
+                (slice
+                  (primary_expression
+                    (attribute
+                      (primary_expression
+                        (identifier))
+                      (identifier)))
+                  (expression
+                    (primary_expression
+                      (identifier))))))
+            (expression
+              (primary_expression
+                (identifier)))))))
+
+================================================================================
+Destructuring in for loop (list)
+================================================================================
+
+all:
+    for all [a, b] in pairs:
+        c = a
+
+
+--------------------------------------------------------------------------------
+
+   (module
+      (all_statement
+        (block
+          (for_control_statement
+            (control_type)
+            (destructuring_expression
+              (list
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (identifier)))))
+            (expression
+              (primary_expression
+                (identifier)))
+            (block
+              (unification
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (identifier)))))))))
+
+================================================================================
+Destructuring in for loop (dict)
+================================================================================
+
+all:
+    for all {k: v} in items:
+        out = v
+
+
+--------------------------------------------------------------------------------
+
+   (module
+      (all_statement
+        (block
+          (for_control_statement
+            (control_type)
+            (destructuring_expression
+              (dictionary
+                (key_value_pair
+                  (expression
+                    (primary_expression
+                      (identifier)))
+                  (expression
+                    (primary_expression
+                      (identifier))))))
+            (expression
+              (primary_expression
+                (identifier)))
+            (block
+              (unification
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (identifier)))))))))
+
+================================================================================
+Statement binary and/or with unifications and predicates
+================================================================================
+
+all:
+    a = 1 and b = 2
+    p(x) or q(y)
+
+
+--------------------------------------------------------------------------------
+
+   (module
+      (all_statement
+        (block
+          (statement_binary_operator
+            (unification
+              (expression
+                (primary_expression
+                  (identifier)))
+              (expression
+                (primary_expression
+                  (number))))
+            (unification
+              (expression
+                (primary_expression
+                  (identifier)))
+              (expression
+                (primary_expression
+                  (number)))))
+          (statement_binary_operator
+            (predicate
+              (primary_expression
+                (identifier))
+              (argument_list
+                (expression
+                  (primary_expression
+                    (identifier)))))
+            (predicate
+              (primary_expression
+                (identifier))
+              (argument_list
+                (expression
+                  (primary_expression
+                    (identifier)))))))))
+
+================================================================================
+Unification operators
+================================================================================
+
+all:
+    x == y
+    a != b
+    lhs << rhs
+    out >> result
+
+
+--------------------------------------------------------------------------------
+
+   (module
+      (all_statement
+        (block
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (identifier))))
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (identifier))))
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (identifier))))
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (identifier)))))))
+
+================================================================================
+When and with predicate (call in condition)
+================================================================================
+
+all:
+    when foo(a, b):
+        z = 1
+    with bar(x):
+        w = 2
+
+
+--------------------------------------------------------------------------------
+
+   (module
+      (all_statement
+        (block
+          (when_statement
+            (predicate
+              (primary_expression
+                (identifier))
+              (argument_list
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (identifier)))))
+            (block
+              (unification
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (number))))))
+          (with_statement
+            (predicate
+              (primary_expression
+                (identifier))
+              (argument_list
+                (expression
+                  (primary_expression
+                    (identifier)))))
+            (block
+              (unification
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (number)))))))))
+
+================================================================================
+Type assignment and typedef
+================================================================================
+
+all:
+    type X = int
+    y :: MyType
+    type G = {a: int}
+
+
+--------------------------------------------------------------------------------
+
+   (module
+      (all_statement
+        (block
+          (type_assignment_statement
+            (identifier)
+            (type_definition
+              (type_application
+                (type_identifier))))
+          (typedef_statement
+            (identifier)
+            (type_definition
+              (type_application
+                (type_identifier))))
+          (type_assignment_statement
+            (identifier)
+            (type_definition
+              (type_object
+                (type_key_value_pair
+                  (identifier)
+                  (type_definition
+                    (type_application
+                      (type_identifier))))))))))
+
+================================================================================
+Predicate definition with destructuring and type
+================================================================================
+
+all:
+    eq = (a: int, b) => a == b
+    g = ([x, y]) => f(x)
+
+
+--------------------------------------------------------------------------------
+
+   (module
+      (all_statement
+        (block
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (predicate_definition
+              (argument_definition
+                (destructuring_expression
+                  (identifier))
+                (type_definition
+                  (type_application
+                    (type_identifier))))
+              (argument_definition
+                (destructuring_expression
+                  (identifier)))
+              (unification
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (identifier))))))
+          (unification
+            (expression
+              (primary_expression
+                (identifier)))
+            (predicate_definition
+              (argument_definition
+                (destructuring_expression
+                  (list
+                    (expression
+                      (primary_expression
+                        (identifier)))
+                    (expression
+                      (primary_expression
+                        (identifier))))))
+              (predicate
+                (primary_expression
+                  (identifier))
+                (argument_list
+                  (expression
+                    (primary_expression
+                      (identifier))))))))))
